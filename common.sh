@@ -20,6 +20,7 @@ COVERAGE_FLAGS="-O0 -fsanitize-coverage=trace-pc-guard"
 FUZZ_CXXFLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address -fsanitize-coverage=trace-pc-guard,trace-cmp,trace-gep,trace-div"
 CORPUS=CORPUS-$EXECUTABLE_NAME_BASE
 JOBS=${JOBS:-"10"}
+SEED=${SEED:-"1337"}
 
 
 export CC=${CC:-"clang"}
