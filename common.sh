@@ -6,7 +6,7 @@
 [ -e $(basename $0) ] && echo "PLEASE USE THIS SCRIPT FROM ANOTHER DIR" && exit 1
 
 # Ensure that fuzzing engine, if defined, is valid
-FUZZING_ENGINE=${FUZZING_ENGINE:-"libfuzzer"}
+FUZZING_ENGINE=${FUZZING_ENGINE:-"fsanitize_fuzzer"}
 POSSIBLE_FUZZING_ENGINE="libfuzzer afl coverage fsanitize_fuzzer hooks"
 !(echo "$POSSIBLE_FUZZING_ENGINE" | grep -w "$FUZZING_ENGINE" > /dev/null) && \
   echo "USAGE: Error: If defined, FUZZING_ENGINE should be one of the following:
@@ -19,7 +19,7 @@ AFL_SRC=${AFL_SRC:-$(dirname $(dirname $SCRIPT_DIR))/AFL}
 COVERAGE_FLAGS="-O0 -fsanitize-coverage=trace-pc-guard"
 FUZZ_CXXFLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address -fsanitize-coverage=trace-pc-guard,trace-cmp,trace-gep,trace-div"
 CORPUS=CORPUS-$EXECUTABLE_NAME_BASE
-JOBS=${JOBS:-"8"}
+JOBS=${JOBS:-"10"}
 
 
 export CC=${CC:-"clang"}
