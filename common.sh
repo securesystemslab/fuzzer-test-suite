@@ -22,6 +22,7 @@ CORPUS=CORPUS-$EXECUTABLE_NAME_BASE
 JOBS=${JOBS:-"10"}
 SEED=${SEED:-"1337"}
 MAX_TOTAL_TIME=${MAX_TOTAL_TIME:-"3600"}  # in seconds
+RELOAD=${RELOAD:-"0"}  # disable reloads (parallel fuzzing processes share the corpus directory)
 VERBOSITY=${VERBOSITY:-"2"}  # levels: 0,1,2
 PRINT_PCS=${PRINT_PCS:-"1"}
 PRINT_FUNCS=${PRINT_FUNCS:-"9999"}  # print at most this number of newly covered functions
