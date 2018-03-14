@@ -21,8 +21,13 @@ FUZZ_CXXFLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address -fsanitize-cove
 CORPUS=CORPUS-$EXECUTABLE_NAME_BASE
 JOBS=${JOBS:-"10"}
 SEED=${SEED:-"1337"}
-TIMEOUT=${TIMEOUT:-"3600"}  # in seconds
-
+MAX_TOTAL_TIME=${MAX_TOTAL_TIME:-"3600"}  # in seconds
+VERBOSITY=${VERBOSITY:-"2"}  # levels: 0,1,2
+PRINT_PCS=${PRINT_PCS:-"1"}
+PRINT_FUNCS=${PRINT_FUNCS:-"9999"}  # print at most this number of newly covered functions
+PRINT_FINAL_STATS=${PRINT_FINAL_STATS:-"1"}
+PRINT_CORPUS_STATS=${PRINT_CORPUS_STATS:-"1"}
+PRINT_COVERAGE=${PRINT_COVERAGE:-"1"}
 
 export CC=${CC:-"clang"}
 export CXX=${CXX:-"clang++"}
