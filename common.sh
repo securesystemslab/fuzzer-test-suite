@@ -21,6 +21,7 @@ FUZZ_CXXFLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address -fsanitize-cove
 CORPUS=CORPUS-$EXECUTABLE_NAME_BASE
 JOBS=${JOBS:-"10"}
 SEED=${SEED:-"1337"}
+TIMEOUT=${TIMEOUT:-"3600"}  # in seconds
 
 
 export CC=${CC:-"clang"}
