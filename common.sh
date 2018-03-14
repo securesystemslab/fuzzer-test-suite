@@ -35,7 +35,7 @@ export LIB_FUZZING_ENGINE="libFuzzingEngine-${FUZZING_ENGINE}.a"
 
 if [[ $FUZZING_ENGINE == "fsanitize_fuzzer" ]]; then
   # FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link"
-  FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link -control-flow-diversity"
+  FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link -control-flow-diversity -Wno-error=unused-command-line-argument"
   export CFLAGS=${CFLAGS:-$FSANITIZE_FUZZER_FLAGS}
   export CXXFLAGS=${CXXFLAGS:-$FSANITIZE_FUZZER_FLAGS}
 elif [[ $FUZZING_ENGINE == "coverage" ]]; then
