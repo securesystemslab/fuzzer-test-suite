@@ -23,3 +23,4 @@ do
   (${ABS_SCRIPT_DIR}/test-only.sh "${file_name}" > run-${file_name}.out 2>&1  && sleep 5)
 done
 
+${ABS_SCRIPT_DIR}/collect-results.sh  # Collect results after running
