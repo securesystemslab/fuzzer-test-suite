@@ -21,7 +21,7 @@ FUZZ_CXXFLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address -fsanitize-cove
 CORPUS=CORPUS-$EXECUTABLE_NAME_BASE
 JOBS=${JOBS:-"10"}
 SEED=${SEED:-"1337"}
-MAX_TOTAL_TIME=${MAX_TOTAL_TIME:-"3600"}  # in seconds
+MAX_TOTAL_TIME=${MAX_TOTAL_TIME:-"300"}  # in seconds
 RELOAD=${RELOAD:-"0"}  # disable reloads (parallel fuzzing processes share the corpus directory)
 VERBOSITY=${VERBOSITY:-"1"}  # levels: 0,1,2
 PRINT_PCS=${PRINT_PCS:-"1"}
