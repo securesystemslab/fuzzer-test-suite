@@ -19,7 +19,7 @@ AFL_SRC=${AFL_SRC:-$(dirname $(dirname $SCRIPT_DIR))/AFL}
 COVERAGE_FLAGS="-O0 -fsanitize-coverage=trace-pc-guard"
 FUZZ_CXXFLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address -fsanitize-coverage=trace-pc-guard,trace-cmp,trace-gep,trace-div"
 CORPUS=CORPUS-$EXECUTABLE_NAME_BASE
-JOBS=${JOBS:-"10"}
+JOBS=${JOBS:-"40"}
 SEED=${SEED:-"1337"}
 MAX_TOTAL_TIME=${MAX_TOTAL_TIME:-"300"}  # in seconds
 RELOAD=${RELOAD:-"0"}  # disable reloads (parallel fuzzing processes share the corpus directory)
