@@ -13,20 +13,29 @@
 ABS_SCRIPT_DIR=$(readlink -f $SCRIPT_DIR)
 BENCHMARKS=( ${ABS_SCRIPT_DIR}/*/ )
 
+# Collect valid benchmarks
+BS=()
+
+for f in $BENCHMARKS
+do
+  file_name="$(basename $f)"
+  [[ ! -d $f ]] && continue # echo "${file_name} isn't a directory" && continue
+  [[ ! -e ${f}build.sh ]] && continue # echo "${file_name} has no build script" && continue
+  echo "Running test $file_name"
+  # (cd $PARENT_DIR && ${ABS_SCRIPT_DIR}/build-and-test.sh "${file_name}" > from-${file_name}.out 2>&1  &) # && sleep 10
+  # (${ABS_SCRIPT_DIR}/test-only.sh "${file_name}" > run-${file_name}.out 2>&1  && sleep 5)
+  BS+=("$file_name")
+done
+
 # Run 4 benchmarks in parallel
 GROUP=4
 
-for((i=0; i < ${#BENCHMARKS[@]}; i+=GROUP))
+for((i=0; i < ${#BS[@]}; i+=GROUP))
 do
-  BENCHMARK_GROUP=( "${BENCHMARKS[@]:i:GROUP}" )
+  BENCHMARK_GROUP=( "${BS[@]:i:GROUP}" )
   echo "Running benchmarks in parallel: ${BENCHMARK_GROUP[*]}"
-  for f in ${BENCHMARK_GROUP[*]}
+  for file_name in ${BENCHMARK_GROUP[*]}
   do
-    file_name="$(basename $f)"
-    [[ ! -d $f ]] && continue # echo "${file_name} isn't a directory" && continue
-    [[ ! -e ${f}build.sh ]] && continue # echo "${file_name} has no build script" && continue
-    echo "Running test $file_name"
-    # (cd $PARENT_DIR && ${ABS_SCRIPT_DIR}/build-and-test.sh "${file_name}" > from-${file_name}.out 2>&1  &) # && sleep 10
     (${ABS_SCRIPT_DIR}/test-only.sh "${file_name}" > run-${file_name}.out 2>&1) &
   done
   sleep $MAX_TOTAL_TIME
