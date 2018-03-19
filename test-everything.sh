@@ -11,7 +11,7 @@
 # echo "Created top directory $PARENT_DIR"
 
 ABS_SCRIPT_DIR=$(readlink -f $SCRIPT_DIR)
-BENCHMARKS=${ABS_SCRIPT_DIR}/*/
+BENCHMARKS=( ${ABS_SCRIPT_DIR}/*/ )
 
 # Run 4 benchmarks in parallel
 GROUP=4
