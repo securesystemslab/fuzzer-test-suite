@@ -34,9 +34,17 @@ export CC=${CC:-"clang"}
 export CXX=${CXX:-"clang++"}
 export LIB_FUZZING_ENGINE="libFuzzingEngine-${FUZZING_ENGINE}.a"
 
+FUZZ_VERSION=${FUZZ_VERSION:-"none"}
+
 if [[ $FUZZING_ENGINE == "fsanitize_fuzzer" ]]; then
-  # FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link"
-  FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link -control-flow-diversity -Wno-error=unused-command-line-argument"
+  if [[ $FUZZ_VERSION == "baseline" ]]; then
+    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link"
+  elif [[ $FUZZ_VERSION == "cfd" ]]; then
+    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link -control-flow-diversity -Wno-error=unused-command-line-argument"
+  else
+    echo "Set FUZZ_VERSION to 'baseline' or 'cfd'"
+    exit 1
+  fi
   export CFLAGS=${CFLAGS:-$FSANITIZE_FUZZER_FLAGS}
   export CXXFLAGS=${CXXFLAGS:-$FSANITIZE_FUZZER_FLAGS}
 elif [[ $FUZZING_ENGINE == "coverage" ]]; then
