@@ -20,11 +20,11 @@ test_source_location() {
   grep "INFO: found line matching '$SRC_LOC'" fuzz-*.log || exit 1
 }
 
-test_source_location png.c:1035
+# test_source_location png.c:1035
 # test_source_location pngrutil.c:1041
 # test_source_location pngread.c:757
 # The following currently require too much time to find.
-#test_source_location pngrutil.c:1393
+test_source_location pngrutil.c:1393
 #test_source_location pngread.c:738
 #test_source_location pngrutil.c:3182
 #test_source_location pngrutil.c:139
