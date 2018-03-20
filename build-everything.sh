@@ -4,7 +4,7 @@
 
 . $(dirname $0)/common.sh
 
-PARENT_DIR="BUILD_EVERY_BENCHMARK"
+PARENT_DIR=${1:-"BUILD_EVERY_BENCHMARK"}
 #[[ -e "$PARENT_DIR" ]] && echo "Rename folder $PARENT_DIR to avoid deletion" && exit 1
 rm -rf $PARENT_DIR
 mkdir $PARENT_DIR
