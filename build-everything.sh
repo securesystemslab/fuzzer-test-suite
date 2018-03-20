@@ -18,7 +18,8 @@ do
   file_name="$(basename $f)"
   [[ ! -d $f ]] && continue # echo "${file_name} isn't a directory" && continue
   [[ ! -e ${f}build.sh ]] && continue # echo "${file_name} has no build script" && continue
-  echo "Running build_only $file_name"
+  [[ -e ${f}IGNORE ]] && continue # Explicitly ignored
+  echo "Building $file_name"
   (cd $PARENT_DIR && ${ABS_SCRIPT_DIR}/build-only.sh "${file_name}" > build-${file_name}.out 2>&1  &) # && sleep 10
 done
 

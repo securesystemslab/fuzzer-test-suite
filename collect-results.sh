@@ -20,7 +20,8 @@ for f in $BENCHMARKS
 do
   file_name="$(basename $f)"
   [[ ! -d $f ]] && continue # echo "${file_name} isn't a directory" && continue
-  [[ ! -e ${f}test-libfuzzer.sh ]] && continue # echo "${file_name} has no run script" && continue
+  [[ ! -e ${f}build.sh ]] && continue # echo "${file_name} has no run script" && continue
+  [[ -e ${f}IGNORE ]] && continue # Explicitly ignored
   echo "Collecting results for $file_name"
   # (cd $PARENT_DIR && ${ABS_SCRIPT_DIR}/build-and-test.sh "${file_name}" > from-${file_name}.out 2>&1  &) # && sleep 10
 

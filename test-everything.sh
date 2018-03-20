@@ -21,6 +21,7 @@ do
   file_name="$(basename $f)"
   [[ ! -d $f ]] && continue # echo "${file_name} isn't a directory" && continue
   [[ ! -e ${f}build.sh ]] && continue # echo "${file_name} has no build script" && continue
+  [[ -e ${f}IGNORE ]] && continue # Explicitly ignored
   # echo "Running test $file_name"
   # (cd $PARENT_DIR && ${ABS_SCRIPT_DIR}/build-and-test.sh "${file_name}" > from-${file_name}.out 2>&1  &) # && sleep 10
   # (${ABS_SCRIPT_DIR}/test-only.sh "${file_name}" > run-${file_name}.out 2>&1  && sleep 5)
@@ -36,7 +37,7 @@ do
   echo "Running benchmarks in parallel: ${BS_GROUP[*]}"
   for file_name in ${BS_GROUP[*]}
   do
-    echo "Running test $file_name"
+    echo "Running $file_name"
     (${ABS_SCRIPT_DIR}/test-only.sh "${file_name}" > run-${file_name}.out 2>&1) &
   done
   sleep $MAX_TOTAL_TIME
