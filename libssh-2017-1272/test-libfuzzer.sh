@@ -9,7 +9,7 @@ mkdir $CORPUS
 
 rm -f *.log
 
-[ -e $EXECUTABLE_NAME_BASE ] && ./$EXECUTABLE_NAME_BASE -seed=$SEED -max_total_time=$MAX_TOTAL_TIME -reload=$RELOAD -verbosity=$VERBOSITY -print_pcs=$PRINT_PCS -print_funcs=$PRINT_FUNCS -print_final_stats=$PRINT_FINAL_STATS -print_corpus_stats=$PRINT_CORPUS_STATS -print_coverage=$PRINT_COVERAGE -max_len=60 -artifact_prefix=$CORPUS/ -jobs=$JOBS -workers=$JOBS $CORPUS
+[ -e $EXECUTABLE_NAME_BASE ] && ./$EXECUTABLE_NAME_BASE -seed=$SEED -max_total_time=$MAX_TOTAL_TIME -reload=$RELOAD -verbosity=$VERBOSITY -print_new_units=$PRINT_NEW_UNITS -print_pcs=$PRINT_PCS -print_funcs=$PRINT_FUNCS -print_final_stats=$PRINT_FINAL_STATS -print_corpus_stats=$PRINT_CORPUS_STATS -print_coverage=$PRINT_COVERAGE -max_len=60 -artifact_prefix=$CORPUS/ -jobs=$JOBS -workers=$JOBS $CORPUS
 grep "ERROR: LeakSanitizer: detected memory leaks" fuzz-0.log || exit 1
 
 
