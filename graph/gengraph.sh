@@ -58,7 +58,7 @@ do
     for dir in $root_dir\/*
     do
         scheme=$(basename "$dir")
-        num_of_csv=$(ls $scheme\_$benchmark\_*.csv 2>/dev/null | wc -l)
+        num_of_csv=$(ls $scheme\_$benchmark\_*.csv | wc -l)
         if [ $max_of_csv -lt $num_of_csv ]
         then
             max_of_csv=$num_of_csv
@@ -67,18 +67,18 @@ do
 
     gnuplot -c plot.sh 'cov' 1 $max_of_csv $benchmark -persist
     gnuplot -c plot.sh 'ft' 2 $max_of_csv $benchmark -persist
-    gnuplot -c plot.sh 'corp\_units' 3 $max_of_csv $benchmark -persist
-    gnuplot -c plot.sh 'corp\_size' 4 $max_of_csv $benchmark -persist
+    gnuplot -c plot.sh 'corp_units' 3 $max_of_csv $benchmark -persist
+    gnuplot -c plot.sh 'corp_size' 4 $max_of_csv $benchmark -persist
     gnuplot -c plot.sh 'exec' 5 $max_of_csv $benchmark -persist
     gnuplot -c plot.sh 'rss' 6 $max_of_csv $benchmark -persist
 
 
-    gnuplot -c plot_average.sh 'cov\_average' 1 $benchmark -persist
-    gnuplot -c plot_average.sh 'ft\_average' 2 $benchmark -persist
-    gnuplot -c plot_average.sh 'corp\_units\_average' 3 $benchmark -persist
-    gnuplot -c plot_average.sh 'corp\_size\_average' 4 $benchmark -persist
-    gnuplot -c plot_average.sh 'exec\_average' 5 $benchmark -persist
-    gnuplot -c plot_average.sh 'rss\_average' 6 $benchmark -persist
+    gnuplot -c plot_average.sh 'cov_average' 1 $benchmark -persist
+    gnuplot -c plot_average.sh 'ft_average' 2 $benchmark -persist
+    gnuplot -c plot_average.sh 'corp_units_average' 3 $benchmark -persist
+    gnuplot -c plot_average.sh 'corp_size_average' 4 $benchmark -persist
+    gnuplot -c plot_average.sh 'exec_average' 5 $benchmark -persist
+    gnuplot -c plot_average.sh 'rss_average' 6 $benchmark -persist
 
 done
 
