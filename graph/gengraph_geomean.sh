@@ -20,7 +20,7 @@ END {
         # Loop over fields of current line in array of sums
         for (j = 1; j <= NF; ++j) {
 
-            # Build record with averages
+            # Build record with geomeans
             $j = values[i, j] ** (1.0/nfiles_per_rec[i])
         }
         print

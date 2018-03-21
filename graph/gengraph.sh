@@ -27,7 +27,7 @@ do
             done
             if [ $num_of_log -ne 0 ]
             then
-                ./gengraph_av.sh $scheme\_$benchmark\_*.csv > average_$scheme\_$benchmark\.csv 
+                ./gengraph_geomean.sh $scheme\_$benchmark\_*.csv > geomean_$scheme\_$benchmark\.csv 
             fi
         fi
     done
@@ -73,12 +73,12 @@ do
     gnuplot -c plot.sh 'rss' 6 $max_of_csv $benchmark -persist
 
 
-    gnuplot -c plot_average.sh 'cov_average' 1 $benchmark -persist
-    gnuplot -c plot_average.sh 'ft_average' 2 $benchmark -persist
-    gnuplot -c plot_average.sh 'corp_units_average' 3 $benchmark -persist
-    gnuplot -c plot_average.sh 'corp_size_average' 4 $benchmark -persist
-    gnuplot -c plot_average.sh 'exec_average' 5 $benchmark -persist
-    gnuplot -c plot_average.sh 'rss_average' 6 $benchmark -persist
+    gnuplot -c plot_geomean.sh 'cov_geomean' 1 $benchmark -persist
+    gnuplot -c plot_geomean.sh 'ft_geomean' 2 $benchmark -persist
+    gnuplot -c plot_geomean.sh 'corp_units_geomean' 3 $benchmark -persist
+    gnuplot -c plot_geomean.sh 'corp_size_geomean' 4 $benchmark -persist
+    gnuplot -c plot_geomean.sh 'exec_geomean' 5 $benchmark -persist
+    gnuplot -c plot_geomean.sh 'rss_geomean' 6 $benchmark -persist
 
 done
 
