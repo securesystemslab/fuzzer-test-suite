@@ -18,7 +18,7 @@ do
             num_of_log=$(ls $root_dir\/$scheme\/$benchmark\/ | wc -l) 
             if [ $num_of_log -ne 10 ]
             then
-                echo "wrong number of log files: $scheme/$benchmark"
+                echo "wrong number ($num_of_log) of log files for $scheme/$benchmark"
                 exit 1
             fi
             for((k=0; k<$num_of_log ; k++))
