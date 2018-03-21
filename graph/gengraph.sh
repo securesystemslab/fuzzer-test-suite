@@ -1,12 +1,9 @@
 #!/bin/bash
 
-rm -f *.csv
-rm -f *.pdf
-
-
 root_dir="../fuzz-results"
-num_of_bench=0
+output_dir="results"
 
+num_of_bench=0
 
 for dir in $root_dir\/* 
 do
@@ -86,4 +83,8 @@ do
 done
 
 
-rm *.csv
+rm -rf $output_dir
+mkdir $output_dir
+
+mv *.csv $output_dir
+mv *.pdf $output_dir
