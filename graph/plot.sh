@@ -10,5 +10,5 @@ set title "Julian's nice work"
 set style data linespoints
 
 plot for [i=0:num_bench] 'baseline_'.ARG4.'_'.i.'.csv' using col t ''.i.'' lc -1,\
- for [i=0:num_bench] 'p2_'.ARG4.'_'.i.'.csv' using col t ''.i.'' lc 1,\
- for [i=0:num_bench] 'simpler_'.ARG4.'_'.i.'.csv' using col t ''.i.'' lc 2,\
+     for [i=0:num_bench] 'simpler_'.ARG4.'_'.i.'.csv' using col t ''.i.'' lc 1,\
+    #  for [i=0:num_bench] 'simpler_'.ARG4.'_'.i.'.csv' using col t ''.i.'' lc 2,\
