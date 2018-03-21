@@ -7,6 +7,6 @@ set ylabel ARG1
 col=ARG2 + 0
 set title "Julian's nice work"
 set style data linespoints
-plot 'baseline_'.ARG3.'_average.csv' using col t "Average" lc -1, \
-            'p2_'.ARG3.'_average.csv' using col t "Average" lc 1, \
-            'simpler_'.ARG3.'_average.csv' using col t "Average" lc 2
+plot 'average_baseline_'.ARG3.'.csv' using col t "Geomean" lc -1, \
+            'average_p2_'.ARG3.'.csv' using col t "Geomean" lc 1, \
+            'average_simpler_'.ARG3.'.csv' using col t "Geomean" lc 2

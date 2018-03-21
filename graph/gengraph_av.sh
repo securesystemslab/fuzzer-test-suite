@@ -6,7 +6,7 @@ FNR == 1 { ++nfiles }
 {
     # (Pseudo) 2D array summing up fields across files
     for (i = 1; i <= NF; ++i) {
-        values[FNR, i] += $i
+        values[FNR, i] = values[FNR,i] + $i^2
     }
     ++nfiles_per_rec[FNR]
 }
@@ -19,7 +19,7 @@ END {
         for (j = 1; j <= NF; ++j) {
 
             # Build record with averages
-            $j = values[i, j]/nfiles_per_rec[i]
+            $j = sqrt(values[i, j])/nfiles_per_rec[i]
         }
         print
     }
