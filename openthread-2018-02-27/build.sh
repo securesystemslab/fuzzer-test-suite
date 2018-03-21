@@ -47,3 +47,5 @@ if [[ ! -d seeds-radio ]]; then
 fi
 cp BUILD/tests/fuzz/ip6-send-fuzzer $EXECUTABLE_NAME_BASE-ip6
 cp BUILD/tests/fuzz/radio-receive-done-fuzzer $EXECUTABLE_NAME_BASE-radio
+
+cp BUILD/tests/fuzz/ip6-send-fuzzer $EXECUTABLE_NAME_BASE
