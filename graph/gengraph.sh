@@ -65,7 +65,7 @@ do
         fi
     done
 
-    gnuplot -c plot.sh 'cov' 1 40 $benchmark -persist
+    gnuplot -c plot.sh 'cov' 1 $max_of_csv $benchmark -persist
     gnuplot -c plot.sh 'ft' 2 $max_of_csv $benchmark -persist
     gnuplot -c plot.sh 'corp\_units' 3 $max_of_csv $benchmark -persist
     gnuplot -c plot.sh 'corp\_size' 4 $max_of_csv $benchmark -persist
