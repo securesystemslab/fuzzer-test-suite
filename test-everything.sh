@@ -34,6 +34,7 @@ GROUP=4
 for((i=0; i < ${#BS[@]}; i+=GROUP))
 do
   BS_GROUP=( "${BS[@]:i:GROUP}" )
+  echo ""
   echo "Running benchmarks in parallel: ${BS_GROUP[*]}"
   for file_name in ${BS_GROUP[*]}
   do
