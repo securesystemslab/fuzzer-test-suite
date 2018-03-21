@@ -18,7 +18,12 @@ do
     do
         if [ -d "$ben" ]; then
             benchmark=$(basename "$ben")
-            num_of_log=$(ls ../fuzz-results/$scheme\/$benchmark\/ | wc -l) 
+            num_of_log=$(ls $root_dir\/$scheme\/$benchmark\/ | wc -l) 
+            if [ $num_of_log -ne 10 ]
+            then
+                echo "wrong number of log files: $scheme/$benchmark"
+                exit 1
+            fi
             for((k=0; k<$num_of_log ; k++))
             do
                 grep -E 'BENCHMARK cov:' $root_dir\/$scheme/$benchmark/fuzz-$k\.log | sed -e "s/#[0-9]*\t//" -e 's/BENCHMARK //' -e 's/cov: //' -e 's/ft: //' -e 's/corp: //' -e 's/\//\t/' -e 's/Kb/000/g' -e 's/Mb/000000/g' -e 's/Gb/000000000/g' -e 's/b//g'  -e 's/exec\/s: //' -e 's/ rss://' > $scheme\_$benchmark\_$k\.csv
