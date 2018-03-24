@@ -85,6 +85,7 @@ done
 
 rm -rf $output_dir
 mkdir $output_dir
+mkdir $output_dir/csv
 
-mv *.csv $output_dir
+mv *.csv $output_dir/csv
 mv *.pdf $output_dir
