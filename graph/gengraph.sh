@@ -25,14 +25,17 @@ do
             do
                 grep -E 'BENCHMARK cov:' $root_dir\/$scheme/$benchmark/fuzz-$k\.log | sed -e "s/.*#[0-9]*\t//" -e 's/BENCHMARK //' -e 's/cov: //' -e 's/ft: //' -e 's/corp: //' -e 's/\//\t/' -e 's/Kb/000/g' -e 's/Mb/000000/g' -e 's/Gb/000000000/g' -e 's/b//g'  -e 's/exec\/s: //' -e 's/ rss://' > $scheme\_$benchmark\_$k\.csv
             done
-            if [ $num_of_log -ne 0 ]
-            then
-                ./gengraph_geomean.sh $scheme\_$benchmark\_*.csv > geomean_$scheme\_$benchmark\_old.csv 
-            fi
-            ./gengraph_geomean.py $scheme\_$benchmark\_ > geomean_$scheme\_$benchmark\.csv || exit
+            # if [ $num_of_log -ne 0 ]
+            # then
+            #     ./gengraph_geomean.sh $scheme\_$benchmark\_*.csv > geomean_$scheme\_$benchmark\_old.csv 
+            # fi
+            # ./gengraph_geomean.py $scheme\_$benchmark\_ > geomean_$scheme\_$benchmark\.csv || exit
         fi
     done
 done
+
+./pretty_plot.py
+exit 0
 
 #echo ${benches[0]}
 #echo ${benches[1]}
