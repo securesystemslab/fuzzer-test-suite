@@ -35,6 +35,14 @@ do
 done
 
 ./pretty_plot.py
+
+rm -rf $output_dir
+mkdir $output_dir
+mkdir $output_dir/csv
+
+mv *.csv $output_dir/csv
+mv *.pdf $output_dir
+
 exit 0
 
 #echo ${benches[0]}
@@ -85,11 +93,3 @@ do
     gnuplot -c plot_geomean.sh 'rss_geomean' 6 $benchmark -persist
 
 done
-
-
-rm -rf $output_dir
-mkdir $output_dir
-mkdir $output_dir/csv
-
-mv *.csv $output_dir/csv
-mv *.pdf $output_dir
