@@ -5,7 +5,7 @@ from scipy.stats.mstats import gmean
 
 
 num_files = 10
-num_values = 6
+num_values = 6  # cov, ft, active units, corp size, execs, rss
 file_scheme = sys.argv[1]
 files = [open(file_scheme+str(i)+'.csv') for i in range(num_files)]
 
@@ -20,6 +20,8 @@ while files:
             assert len(line_values) == num_values
             for i in range(num_values):
                 val = int(line_values[i])
+                assert val > 0 or i == 4    # exec/s might be zero which is a problem for geomean
+                val = max(val, 1)
                 values[i].append(val)
         else:
             finished_files.append(f)
@@ -31,4 +33,5 @@ while files:
 
     if files:
         gms = [gmean(data) for data in values]
-        print ' '.join(str(x) for x in gms)
+        line = ' '.join(str(x) for x in gms)
+        print(line)
