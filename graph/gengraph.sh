@@ -29,7 +29,7 @@ do
             then
                 ./gengraph_geomean.sh $scheme\_$benchmark\_*.csv > geomean_$scheme\_$benchmark\_old.csv 
             fi
-            ./gengraph_geomean.py $scheme\_$benchmark\_ > geomean_$scheme\_$benchmark\.csv
+            ./gengraph_geomean.py $scheme\_$benchmark\_ > geomean_$scheme\_$benchmark\.csv || exit
         fi
     done
 done
