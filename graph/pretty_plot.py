@@ -107,19 +107,14 @@ for b in range(len(all_data)):
     plt.close()
 
 # Special graph for paper
-sel_bs = [0, 1]
-fig, axarr = plt.subplots(2, 2, sharex=True)
+sel_bs = [0, 2]  # which benchmarks?
+comb_types = [4, 1]  # exec/s, features
+fig, axarr = plt.subplots(2, 2, sharex='col')
 # plt.figure(figsize=(8, 4.5))  # default: (8, 6)
 # fig.suptitle(bench)
 axarr[0, 0].set_title(benchmarks[sel_bs[0]])
 axarr[0, 1].set_title(benchmarks[sel_bs[1]])
-# axarr[0].ylabel('exec/s')
-# axarr[0].ylabel('coverage')
-# fig.xlabel('fuzz time in minutes')
-
 lines = []
-
-comb_types = [4, 1]  # exec/s, features
 for sel_b in range(len(sel_bs)):
     for i, t in enumerate(comb_types):
         for c in range(len(configs)):
@@ -130,9 +125,18 @@ for sel_b in range(len(sel_bs)):
             x_lookup_max = len(series) - 1  # Special case for last data point
             deaths_y = [series[min(x, x_lookup_max)] for x in deaths]
             axarr[i, sel_b].plot(deaths, deaths_y, linestyle='None', marker='x', color='black', markersize=8, markeredgewidth=0.8)
+        axarr[i, 0].set(ylabel=type_labels[t])
 
 # axarr[1].legend(loc='lower right', shadow=True)
-fig.legend(lines, ['a', 'b', 'c'], loc='top center')
+fig.legend(lines, configs, loc='upper center', ncol=3, labelspacing=0)
+
+# Hack to get a common x-axis label
+fig.add_subplot(111, frameon=False)
+# hide tick and tick label of the big axes
+plt.tick_params(labelcolor='none', top='off', bottom='off', left='off', right='off')
+plt.grid(False)
+plt.xlabel("fuzz time in minutes")
+
 file_name = 'special.pdf'
 plt.savefig(file_name, bbox_inches='tight')
 plt.close()
