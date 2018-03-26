@@ -58,16 +58,18 @@ def compute_data(cfg, bench):
     return data, deaths
 
 
-for bench in benchmarks:
-    # config -> (data types -> series, deaths)
-    all_data = [compute_data(cfg, bench) for cfg in configs]
+# bench -> config -> (data types -> series, deaths)
+all_data = [[compute_data(cfg, bench) for cfg in configs] for bench in benchmarks]
+
+# Individual graph for every metric/benchmark cobmination
+for b in range(len(all_data)):
     for t in range(len(types)):
         plt.figure(figsize=(8, 4.5))  # default: (8, 6)
         plt.ylabel(type_labels[t])
         plt.xlabel('minutes')
 
         for c in range(len(configs)):
-            data, deaths = all_data[c]
+            data, deaths = all_data[b][c]
             series = data[t]
             plt.plot(series, label=config_labels[c], linewidth=1.2, linestyle=config_linestyles[c], color=config_colors[c])
             x_lookup_max = len(series) - 1  # Special case for last data point
@@ -75,7 +77,62 @@ for bench in benchmarks:
             plt.plot(deaths, deaths_y, linestyle='None', marker='x', color='black', markersize=8, markeredgewidth=0.8)
 
         plt.legend(loc='lower right', shadow=True)
-        file_name = bench + '_' + types[t] + '_gmean.pdf'
+        file_name = benchmarks[b] + '_' + types[t] + '_gmean.pdf'
         plt.savefig(file_name, bbox_inches='tight')
         plt.close()
 
+# Combined graph: exec/s, features
+for b in range(len(all_data)):
+    fig, axarr = plt.subplots(2, sharex=True)
+    # plt.figure(figsize=(8, 4.5))  # default: (8, 6)
+    # fig.suptitle(bench)
+    axarr[0].set_title(benchmarks[b])
+    # axarr[0].ylabel('exec/s')
+    # axarr[0].ylabel('coverage')
+    # fig.xlabel('fuzz time in minutes')
+
+    comb_types = [4, 1]  # exec/s, features
+    for i, t in enumerate(comb_types):
+        for c in range(len(configs)):
+            data, deaths = all_data[b][c]
+            series = data[t]
+            axarr[i].plot(series, label=config_labels[c], linewidth=1.2, linestyle=config_linestyles[c], color=config_colors[c])
+            x_lookup_max = len(series) - 1  # Special case for last data point
+            deaths_y = [series[min(x, x_lookup_max)] for x in deaths]
+            axarr[i].plot(deaths, deaths_y, linestyle='None', marker='x', color='black', markersize=8, markeredgewidth=0.8)
+
+    axarr[1].legend(loc='lower right', shadow=True)
+    file_name = benchmarks[b] + '_combined.pdf'
+    plt.savefig(file_name, bbox_inches='tight')
+    plt.close()
+
+# Special graph for paper
+sel_bs = [0, 1]
+fig, axarr = plt.subplots(2, 2, sharex=True)
+# plt.figure(figsize=(8, 4.5))  # default: (8, 6)
+# fig.suptitle(bench)
+axarr[0, 0].set_title(benchmarks[sel_bs[0]])
+axarr[0, 1].set_title(benchmarks[sel_bs[1]])
+# axarr[0].ylabel('exec/s')
+# axarr[0].ylabel('coverage')
+# fig.xlabel('fuzz time in minutes')
+
+lines = []
+
+comb_types = [4, 1]  # exec/s, features
+for sel_b in range(len(sel_bs)):
+    for i, t in enumerate(comb_types):
+        for c in range(len(configs)):
+            data, deaths = all_data[sel_bs[sel_b]][c]
+            series = data[t]
+            line, = axarr[i, sel_b].plot(series, label=config_labels[c], linewidth=1.2, linestyle=config_linestyles[c], color=config_colors[c])
+            lines.append(line)
+            x_lookup_max = len(series) - 1  # Special case for last data point
+            deaths_y = [series[min(x, x_lookup_max)] for x in deaths]
+            axarr[i, sel_b].plot(deaths, deaths_y, linestyle='None', marker='x', color='black', markersize=8, markeredgewidth=0.8)
+
+# axarr[1].legend(loc='lower right', shadow=True)
+fig.legend(lines, ['a', 'b', 'c'], loc='top center')
+file_name = 'special.pdf'
+plt.savefig(file_name, bbox_inches='tight')
+plt.close()
