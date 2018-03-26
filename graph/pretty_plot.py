@@ -134,6 +134,7 @@ axarr[1, 0].set_ylim([1800, 2300])
 axarr[0, 1].set_ylim([0, 135])
 axarr[1, 1].set_ylim([2000, 15000])
 
+fig.subplots_adjust(hspace=0.08)
 # axarr[1].legend(loc='lower right', shadow=True)
 plt.legend(bbox_to_anchor=(0.5, 0), loc="upper center", bbox_transform=fig.transFigure, ncol=3, labelspacing=0, handletextpad=0)
 
