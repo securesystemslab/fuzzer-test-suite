@@ -128,7 +128,7 @@ for sel_b in range(len(sel_bs)):
         axarr[i, 0].set(ylabel=type_labels[t])
 
 # axarr[1].legend(loc='lower right', shadow=True)
-fig.legend(lines, configs, loc='upper center', ncol=3, labelspacing=0)
+plt.legend(bbox_to_anchor=(0.5, 0), loc="upper center", bbox_transform=fig.transFigure, ncol=3, labelspacing=0, handletextpad=0)
 
 # Hack to get a common x-axis label
 fig.add_subplot(111, frameon=False)
