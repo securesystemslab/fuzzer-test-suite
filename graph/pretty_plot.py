@@ -8,7 +8,7 @@ configs = ['baseline', 'simpler']
 config_labels = ['Baseline', 'PartiSan']
 config_colors = ['green', 'blue', 'yellow']
 config_linestyles = ['--', '-', '-.']
-benchmarks = ['boringssl-2016-02-12', 'guetzli-2017-3-30', 'harfbuzz-1.3.2',
+benchmarks = ['boringssl-2016-02-12', 'harfbuzz-1.3.2',
 'json-2017-02-12', 'lcms-2017-03-21', 'libarchive-2017-01-04', 'libjpeg-turbo-07-2017',
 'libpng-1.2.56', 'openssl-1.1.0c', 'openthread-2018-02-27', 'sqlite-2016-11-14',
 'woff2-2016-05-06', 'wpantund-2018-02-27']
@@ -107,9 +107,9 @@ for b in range(len(all_data)):
     plt.close()
 
 # Special graph for paper
-sel_bs = [0, 2]  # which benchmarks?
+sel_bs = [6, 11]  # which benchmarks?
 comb_types = [4, 1]  # exec/s, features
-fig, axarr = plt.subplots(2, 2, sharex='col')
+fig, axarr = plt.subplots(2, 2, sharex='col', figsize=(10, 5))
 # plt.figure(figsize=(8, 4.5))  # default: (8, 6)
 # fig.suptitle(bench)
 axarr[0, 0].set_title(benchmarks[sel_bs[0]])
@@ -120,12 +120,19 @@ for sel_b in range(len(sel_bs)):
         for c in range(len(configs)):
             data, deaths = all_data[sel_bs[sel_b]][c]
             series = data[t]
+            axarr[i, sel_b].yaxis.set_major_locator(plt.MaxNLocator(4))
             line, = axarr[i, sel_b].plot(series, label=config_labels[c], linewidth=1.2, linestyle=config_linestyles[c], color=config_colors[c])
             lines.append(line)
             x_lookup_max = len(series) - 1  # Special case for last data point
             deaths_y = [series[min(x, x_lookup_max)] for x in deaths]
             axarr[i, sel_b].plot(deaths, deaths_y, linestyle='None', marker='x', color='black', markersize=8, markeredgewidth=0.8)
-        axarr[i, 0].set(ylabel=type_labels[t])
+        axarr[i, 0].set_ylabel(type_labels[t], fontsize=14)
+
+# Trim the fat
+axarr[0, 0].set_ylim([500, 2500])
+axarr[1, 0].set_ylim([1800, 2300])
+axarr[0, 1].set_ylim([0, 135])
+axarr[1, 1].set_ylim([2000, 15000])
 
 # axarr[1].legend(loc='lower right', shadow=True)
 plt.legend(bbox_to_anchor=(0.5, 0), loc="upper center", bbox_transform=fig.transFigure, ncol=3, labelspacing=0, handletextpad=0)
@@ -135,7 +142,7 @@ fig.add_subplot(111, frameon=False)
 # hide tick and tick label of the big axes
 plt.tick_params(labelcolor='none', top='off', bottom='off', left='off', right='off')
 plt.grid(False)
-plt.xlabel("fuzz time in minutes")
+plt.xlabel("fuzz time in minutes", fontsize=14)
 
 file_name = 'special.pdf'
 plt.savefig(file_name, bbox_inches='tight')
