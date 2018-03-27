@@ -114,7 +114,6 @@ fig, axarr = plt.subplots(2, 2, sharex='col', figsize=(10, 5))
 # fig.suptitle(bench)
 axarr[0, 0].set_title(benchmarks[sel_bs[0]])
 axarr[0, 1].set_title(benchmarks[sel_bs[1]])
-lines = []
 for sel_b in range(len(sel_bs)):
     for i, t in enumerate(comb_types):
         thick = 0.0
@@ -122,8 +121,7 @@ for sel_b in range(len(sel_bs)):
             data, deaths = all_data[sel_bs[sel_b]][c]
             series = data[t]
             axarr[i, sel_b].yaxis.set_major_locator(plt.MaxNLocator(4))
-            line, = axarr[i, sel_b].plot(series, label=config_labels[c], linewidth=1.3+thick, linestyle=config_linestyles[c], color=config_colors[c])
-            lines.append(line)
+            axarr[i, sel_b].plot(series, label=config_labels[c], linewidth=1.3+thick, linestyle=config_linestyles[c], color=config_colors[c])
             thick -= 0.2
             x_lookup_max = len(series) - 1  # Special case for last data point
             deaths_y = [series[min(x, x_lookup_max)] for x in deaths]
