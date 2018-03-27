@@ -127,6 +127,9 @@ for sel_b in range(len(sel_bs)):
             deaths_y = [series[min(x, x_lookup_max)] for x in deaths]
             axarr[i, sel_b].plot(deaths, deaths_y, linestyle='None', marker='x', color='black', markersize=8, markeredgewidth=0.8)
         axarr[i, 0].set_ylabel(type_labels[t], fontsize=14)
+    ticks = [(x+1)*60 for x in range(8)]
+    axarr[1, sel_b].xaxis.set_major_locator(ticker.FixedLocator(ticks))
+    axarr[1, sel_b].xaxis.set_major_formatter(plt.FuncFormatter(lambda x, pos: '%.0f' % (x/60)))  # convert minutes into hours
 
 # Trim the fat
 axarr[0, 0].set_ylim([500, 2500])
@@ -143,7 +146,7 @@ fig.add_subplot(111, frameon=False)
 # hide tick and tick label of the big axes
 plt.tick_params(labelcolor='none', top='off', bottom='off', left='off', right='off')
 plt.grid(False)
-plt.xlabel("Fuzz time in minutes", fontsize=14)
+plt.xlabel("Fuzz time in hours", fontsize=14)
 
 file_name = 'special.pdf'
 plt.savefig(file_name, bbox_inches='tight')
