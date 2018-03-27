@@ -145,7 +145,7 @@ fig.add_subplot(111, frameon=False)
 # hide tick and tick label of the big axes
 plt.tick_params(labelcolor='none', top='off', bottom='off', left='off', right='off')
 plt.grid(False)
-plt.xlabel("fuzz time in minutes", fontsize=14)
+plt.xlabel("Fuzz time in minutes", fontsize=14)
 
 file_name = 'special.pdf'
 plt.savefig(file_name, bbox_inches='tight')
