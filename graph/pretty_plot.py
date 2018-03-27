@@ -123,6 +123,7 @@ for sel_b in range(len(sel_bs)):
             axarr[i, sel_b].yaxis.set_major_locator(plt.MaxNLocator(4))
             axarr[i, sel_b].plot(series, label=config_labels[c], linewidth=1.3+thick, linestyle=config_linestyles[c], color=config_colors[c])
             thick -= 0.2
+            deaths = [x for x in deaths if x <= 8*60]   # Filter out timeouts
             x_lookup_max = len(series) - 1  # Special case for last data point
             deaths_y = [series[min(x, x_lookup_max)] for x in deaths]
             axarr[i, sel_b].plot(deaths, deaths_y, linestyle='None', marker='x', color='black', markersize=8, markeredgewidth=0.8)
