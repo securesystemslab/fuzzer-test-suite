@@ -42,9 +42,6 @@ if [[ $FUZZING_ENGINE == "fsanitize_fuzzer" ]]; then
     FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link"
   elif [[ $FUZZ_VERSION == "cfd" ]]; then
     FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link -control-flow-diversity -Wno-error=unused-command-line-argument"
-  else
-    echo "Set FUZZ_VERSION to 'baseline' or 'cfd'"
-    exit 1
   fi
   export CFLAGS=${CFLAGS:-$FSANITIZE_FUZZER_FLAGS}
   export CXXFLAGS=${CXXFLAGS:-$FSANITIZE_FUZZER_FLAGS}
