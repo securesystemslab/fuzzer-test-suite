@@ -51,9 +51,14 @@ do
 done
 
 # Collect results after running
+rm -rf results
+mkdir results
+
 for cfg in ${CONFIGS[@]}
 do
   cd $cfg
   ${ABS_SCRIPT_DIR}/collect-results.sh
   cd ..
+
+  cp -r $cfg/results results/$cfg
 done
