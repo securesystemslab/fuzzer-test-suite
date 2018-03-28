@@ -2,7 +2,8 @@
 # Copyright 2016 Google Inc. All Rights Reserved.
 # Licensed under the Apache License, Version 2.0 (the "License");
 . $(dirname $0)/common.sh
-BUILD=$SCRIPT_DIR/$1/build.sh
+# Get just the last component with basename, since we might call it with 'simpler/boringssl'
+BUILD=$SCRIPT_DIR/$(basename $1)/build.sh
 # TEST=$SCRIPT_DIR/$1/test-libfuzzer.sh
 
 if [[ $FUZZ_VERSION != "baseline" ]] && [[ $FUZZ_VERSION != "cfd" ]]; then
