@@ -56,6 +56,7 @@ mkdir results
 
 for cfg in ${CONFIGS[@]}
 do
+  echo "Collecting results for config: $cfg"
   cd $cfg
   ${ABS_SCRIPT_DIR}/collect-results.sh
   cd ..
