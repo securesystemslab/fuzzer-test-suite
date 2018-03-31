@@ -39,9 +39,9 @@ FUZZ_VERSION=${FUZZ_VERSION:-"none"}
 
 if [[ $FUZZING_ENGINE == "fsanitize_fuzzer" ]]; then
   if [[ $FUZZ_VERSION == "baseline" ]]; then
-    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link"
+    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link,undefined -fno-sanitize-recover=all"
   elif [[ $FUZZ_VERSION == "cfd" ]]; then
-    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link -control-flow-diversity -Wno-error=unused-command-line-argument"
+    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link,undefined -fno-sanitize-recover=all -control-flow-diversity -Wno-error=unused-command-line-argument"
   fi
   export CFLAGS=${CFLAGS:-$FSANITIZE_FUZZER_FLAGS}
   export CXXFLAGS=${CXXFLAGS:-$FSANITIZE_FUZZER_FLAGS}
