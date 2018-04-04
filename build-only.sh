@@ -6,11 +6,6 @@
 BUILD=$SCRIPT_DIR/$(basename $1)/build.sh
 # TEST=$SCRIPT_DIR/$1/test-libfuzzer.sh
 
-if [[ $FUZZ_VERSION != "baseline" ]] && [[ $FUZZ_VERSION != "cfd" ]]; then
-  echo "Set FUZZ_VERSION to 'baseline' or 'cfd'"
-  exit 1
-fi
-
 [ ! -e $BUILD ] && echo "NO SUCH FILE: $BUILD" && exit 1
 # [ ! -e $TEST ]  && echo "NO SUCH FILE: $TEST" && exit 1
 

@@ -19,7 +19,7 @@ AFL_SRC=${AFL_SRC:-$(dirname $(dirname $SCRIPT_DIR))/AFL}
 COVERAGE_FLAGS="-O0 -fsanitize-coverage=trace-pc-guard"
 FUZZ_CXXFLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address -fsanitize-coverage=trace-pc-guard,trace-cmp,trace-gep,trace-div"
 CORPUS=CORPUS-$EXECUTABLE_NAME_BASE
-JOBS=${JOBS:-"10"}
+JOBS=${JOBS:-"1"}
 SEED=${SEED:-"1337"}
 MAX_TOTAL_TIME=${MAX_TOTAL_TIME:-"28800"}  # in seconds, 8 hours * 3600
 RELOAD=${RELOAD:-"0"}  # disable reloads (parallel fuzzing processes share the corpus directory)
@@ -40,8 +40,12 @@ FUZZ_VERSION=${FUZZ_VERSION:-"none"}
 if [[ $FUZZING_ENGINE == "fsanitize_fuzzer" ]]; then
   if [[ $FUZZ_VERSION == "baseline" ]]; then
     FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link,undefined" #  -fno-sanitize-recover=all
-  elif [[ $FUZZ_VERSION == "cfd" ]]; then
-    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link,undefined -control-flow-diversity -Wno-error=unused-command-line-argument"
+  elif [[ $FUZZ_VERSION == "cfd2" ]]; then
+    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link,undefined -control-flow-diversity -mllvm -variant-count=2 -Wno-error=unused-command-line-argument"
+  elif [[ $FUZZ_VERSION == "cfd3" ]]; then
+    FSANITIZE_FUZZER_FLAGS="-O2 -fno-omit-frame-pointer -g -fsanitize=address,fuzzer-no-link,undefined -control-flow-diversity -mllvm -variant-count=3 -Wno-error=unused-command-line-argument"
+  else
+    FSANITIZE_FUZZER_FLAGS="-ERROR=baseline-cfd2-cfd3"
   fi
   export CFLAGS=${CFLAGS:-$FSANITIZE_FUZZER_FLAGS}
   export CXXFLAGS=${CXXFLAGS:-$FSANITIZE_FUZZER_FLAGS}
