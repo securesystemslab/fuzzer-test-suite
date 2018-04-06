@@ -29,8 +29,8 @@ do
 done
 
 # Rund all configs and 2 benchmarks in parallel: 3 * 2 * 10 = 60 cores
-CONFIGS=( "baseline" "simpler" "p3" )
-GROUP=2
+CONFIGS=( "baseline" "cfd2" "cfd3" )
+GROUP=1
 
 for((i=0; i < ${#BS[@]}; i+=GROUP))
 do
